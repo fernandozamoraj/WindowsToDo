@@ -2,7 +2,7 @@
 {
     public class FileLocator : IFileLocator
     {
-        private string _filePath = "tasks.data";
+        private string _filePath = "";
 
         public FileLocator(string path)
         {

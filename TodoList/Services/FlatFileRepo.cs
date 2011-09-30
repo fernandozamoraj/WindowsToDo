@@ -25,31 +25,43 @@ namespace TodoList.Services
         {
              _list = new List<TodoTask>();
 
-             using(StreamReader reader = new StreamReader(_fileLocator.GetFilePath()))
-             {
-                 while (reader.Peek() != -1)
-                 {
-                     string line = reader.ReadLine();
+            try
+            {
+                if (File.Exists(_fileLocator.GetFilePath()))
+                {
+                    using (StreamReader reader = new StreamReader(_fileLocator.GetFilePath()))
+                    {
+                        while (reader.Peek() != -1)
+                        {
+                            string line = reader.ReadLine();
 
-                     string[] items = line.Split(',');
+                            string[] items = line.Split(',');
 
-                     TodoTask task = new TodoTask();
+                            TodoTask task = new TodoTask();
 
-                     DateTime dateEntered;
-                     DateTime.TryParse(items[0], out dateEntered);
-                     DateTime dateCompleted;
-                     DateTime.TryParse(items.Length > 3 ? items[3] : items[0], out dateCompleted);
-                     
-                     task.DateEntered = dateEntered;
-                     task.DateCompleted = dateCompleted;
-                     task.Description = items[1];
-                     task.Importance = GetImportance(items.Length > 2 ? items[2] : "1");
-                     task.Notes = items.Length > 4 ? items[4] : string.Empty;
+                            DateTime dateEntered;
+                            DateTime.TryParse(items[0], out dateEntered);
+                            DateTime dateCompleted;
+                            DateTime.TryParse(items.Length > 3 ? items[3] : items[0], out dateCompleted);
 
-                     _list.Add(task);
+                            task.DateEntered = dateEntered;
+                            task.DateCompleted = dateCompleted;
+                            task.Description = items[1];
+                            task.Importance = GetImportance(items.Length > 2 ? items[2] : "1");
+                            task.Notes = items.Length > 4 ? items[4] : string.Empty;
 
-                 }
-             }
+                            _list.Add(task);
+
+                        }
+                    }
+
+                }
+
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Failed while reading: " + _fileLocator.GetFilePath(), exception);
+            }
         }
 
         private Importance GetImportance(string importance)
@@ -69,14 +81,25 @@ namespace TodoList.Services
 
         public void SaveAll()
         {
-
-            using (StreamWriter writer = new StreamWriter(_fileLocator.GetFilePath()))
+            try
             {
-                foreach (TodoTask todoTask in _list)
+                if (!string.IsNullOrEmpty(_fileLocator.GetFilePath()))
                 {
-                    writer.WriteLine("{0},{1},{2},{3},{4}", todoTask.DateEntered, todoTask.Description, todoTask.Importance, todoTask.DateCompleted, todoTask.Notes);                    
+                    using (StreamWriter writer = new StreamWriter(_fileLocator.GetFilePath()))
+                    {
+                        foreach (TodoTask todoTask in _list)
+                        {
+                            writer.WriteLine("{0},{1},{2},{3},{4}", todoTask.DateEntered, todoTask.Description,
+                                             todoTask.Importance, todoTask.DateCompleted, todoTask.Notes);
+                        }
+                    }
                 }
             }
+            catch (Exception exception)
+            {
+                throw new ApplicationException("Failed to save to: " + _fileLocator.GetFilePath(), exception);
+            }
+
         }
 
         public IList<TodoTask> GetUnfinishedTasks(Importance importance)

@@ -15,6 +15,14 @@ namespace TodoList
             InitializeComponent();
         }
 
+        public MainForm(string[] args)
+        {
+            InitializeComponent();
+
+            if(args.Length > 1)
+                _presenter = new TaskPresenter(new FlatFileRepo(new FileLocator(args[1])), new InputBox(), new Prompt());
+        }
+
         private void btnAddNewTask_Click(object sender, EventArgs e)
         {
             TodoTask task = new TodoTask
@@ -38,9 +46,17 @@ namespace TodoList
 
         private void ReLoad()
         {
-            FillTodoTaskListBox(GetAllFilter());
-            FillHistoryListBox(Importance.All);
-            txtDataSource.Text = _presenter.GetDataSourceName();
+            try
+            {
+                FillTodoTaskListBox(GetAllFilter());
+                FillHistoryListBox(Importance.All);
+                txtDataSource.Text = _presenter.GetDataSourceName();
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Failed to load data properlty additional information " + exception.Message);
+            }
         }
 
         private Importance GetAllFilter()
@@ -70,12 +86,20 @@ namespace TodoList
 
         private void btnComplete_Click(object sender, EventArgs e)
         {
-            if(listBoxTasks.SelectedIndex > -1)
+            try
             {
-                _presenter.CompleteTask(listBoxTasks.SelectedItem as TodoTask);
-                FillTodoTaskListBox(GetFilterValues());
-                FillHistoryListBox(Importance.All);
+                if (listBoxTasks.SelectedIndex > -1)
+                {
+                    _presenter.CompleteTask(listBoxTasks.SelectedItem as TodoTask);
+                    FillTodoTaskListBox(GetFilterValues());
+                    FillHistoryListBox(Importance.All);
+                }
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Failed to complete the task. Addition info: " + exception.Message);
+            }
+
         }
 
         private Importance GetFilterValues()
@@ -101,17 +125,14 @@ namespace TodoList
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            _presenter.SaveAll();
-        }
-
-        private void btnFilter_Click(object sender, EventArgs e)
-        {
-            FillTodoTaskListBox(GetFilterValues());
-        }
-
-        private void checkBox1_Click(object sender, EventArgs e)
-        {
-
+            if(string.IsNullOrEmpty( _presenter.GetDataSourceName()) )
+            {
+                SaveAs();
+            }
+            else
+            {
+                _presenter.SaveAll();
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -122,14 +143,11 @@ namespace TodoList
             }
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnLoadFromFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Todo Files (*.tod) | *.tod";
+            openFileDialog.DefaultExt = "tod";
 
             if(openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -141,18 +159,37 @@ namespace TodoList
 
         private void btnSaveAs_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            SaveAs();
+        }
 
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        private void SaveAs()
+        {
+            try
             {
-                _presenter.ChangeRepo(new FlatFileRepo(new FileLocator(saveFileDialog.FileName), _presenter.Repo as FlatFileRepo));
-                txtDataSource.Text = _presenter.GetDataSourceName();
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                saveFileDialog.Filter = "Todo Files (*.tod) | *.tod";
+                saveFileDialog.DefaultExt = "tod";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    _presenter.ChangeRepo(new FlatFileRepo(new FileLocator(saveFileDialog.FileName), _presenter.Repo as FlatFileRepo));
+                    _presenter.SaveAll();
+                    txtDataSource.Text = _presenter.GetDataSourceName();
+                }
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Failed to save file. Additional Info: " + exception.Message);
+            }
+
         }
 
         private void btnCopy_Click(object sender, EventArgs e)
         {
             StringBuilder data = new StringBuilder();
+
+            data.Append(Environment.NewLine + "*****To-Do Task List Items******");
 
             foreach(TodoTask todoTask in listBoxTasks.Items)
             {
@@ -160,6 +197,8 @@ namespace TodoList
             }
 
             Clipboard.SetDataObject(data.ToString(), true);
+
+            MessageBox.Show("Your data is ready to be pasted.");
         }
     }
 }

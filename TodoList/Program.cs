@@ -13,9 +13,11 @@ namespace TodoList
         [STAThread]
         static void Main()
         {
+            string[] args = Environment.GetCommandLineArgs();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            Application.Run(new MainForm(args));
         }
     }
 }
