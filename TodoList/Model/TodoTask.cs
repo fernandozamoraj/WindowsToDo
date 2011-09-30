@@ -2,6 +2,7 @@
 
 namespace TodoList.Model
 {
+    [Serializable]
     public class TodoTask
     {
         public string Description { get; set; }

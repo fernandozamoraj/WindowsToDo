@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using TodoList.Services;
+using TodoList.Services.Repos.Filters;
 
 namespace TodoList
 {
@@ -13,11 +15,17 @@ namespace TodoList
         [STAThread]
         static void Main()
         {
+            RegisterDependencies();
             string[] args = Environment.GetCommandLineArgs();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             Application.Run(new MainForm(args));
+        }
+
+        private static void RegisterDependencies()
+        {
+            ServiceLocator.Register<ITaskFilter, TaskFilter>(new TaskFilter());
         }
     }
 }

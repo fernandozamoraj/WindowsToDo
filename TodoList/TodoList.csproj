@@ -100,10 +100,16 @@
     <Compile Include="Model\TodoTask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\FileLocator.cs" />
-    <Compile Include="Services\FlatFileRepo.cs" />
-    <Compile Include="Services\IFileLocator.cs" />
-    <Compile Include="Services\ITaskRepo.cs" />
+    <Compile Include="Services\Repos\FileRepos\BinaryFileRepo.cs" />
+    <Compile Include="Services\Repos\FileRepos\FileLocator.cs" />
+    <Compile Include="Services\Repos\FileRepos\FileRepo.cs" />
+    <Compile Include="Services\Repos\FileRepos\FlatFileRepo.cs" />
+    <Compile Include="Services\Repos\FileRepos\IFileLocator.cs" />
+    <Compile Include="Services\Repos\Filters\ITaskFilter.cs" />
+    <Compile Include="Services\Repos\Filters\TaskFilter.cs" />
+    <Compile Include="Services\Repos\RepoBase.cs" />
+    <Compile Include="Services\Repos\ITaskRepo.cs" />
+    <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="TaskPresenter.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
