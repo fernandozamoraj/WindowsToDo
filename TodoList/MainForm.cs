@@ -26,18 +26,23 @@ namespace TodoList
 
         private void btnAddNewTask_Click(object sender, EventArgs e)
         {
-            TodoTask task = new TodoTask
-                {
-                    DateCompleted = DateTime.Now,
-                    DateEntered = DateTime.Now,
-                    Description = txtNewTask.Text,
-                    Importance = Importance.Low,
-                    Notes = string.Empty
-                };
+            if (!string.IsNullOrEmpty(txtNewTask.Text))
+            {
+                TodoTask task = new TodoTask
+                                    {
+                                        DateCompleted = DateTime.Now,
+                                        DateEntered = DateTime.Now,
+                                        Description = txtNewTask.Text,
+                                        Importance = Importance.Low,
+                                        Notes = string.Empty
+                                    };
 
-            _presenter.AddTask(task);
+                _presenter.AddTask(task);
 
-            listBoxTasks.Items.Add(task);
+                txtNewTask.Text = string.Empty;
+
+                listBoxTasks.Items.Add(task);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
