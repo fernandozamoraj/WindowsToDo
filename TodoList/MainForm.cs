@@ -9,7 +9,7 @@ namespace TodoList
 {
     public partial class MainForm : Form
     {
-        TaskPresenter _presenter = new TaskPresenter(new FlatFileRepo(new FileLocator()), new InputBox(), new Prompt());
+        TaskPresenter _presenter = new TaskPresenter(new FlatFileRepo(new FileLocator()), new InputBox(), new Prompt(), new FileHistoryRepo());
 
         public MainForm()
         {
@@ -21,7 +21,7 @@ namespace TodoList
             InitializeComponent();
 
             if(args.Length > 1)
-                _presenter = new TaskPresenter(new FlatFileRepo(new FileLocator(args[1])), new InputBox(), new Prompt());
+                _presenter = new TaskPresenter(new FlatFileRepo(new FileLocator(args[1])), new InputBox(), new Prompt(), new FileHistoryRepo());
         }
 
         private void btnAddNewTask_Click(object sender, EventArgs e)
@@ -47,7 +47,21 @@ namespace TodoList
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ReLoad();
+            try
+            {
+                if (!string.IsNullOrEmpty(_presenter.GetLastFileAccessed()))
+                {
+                    LoadFile(_presenter.GetLastFileAccessed());
+                }
+                else
+                {
+                    ReLoad();
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Failed to load. Addition info: " + exception.Message);
+            }
         }
 
         private void ReLoad()
@@ -157,10 +171,14 @@ namespace TodoList
 
             if(openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                _presenter = new TaskPresenter(new FlatFileRepo(new FileLocator(openFileDialog.FileName)), new InputBox(), new Prompt());
-                ReLoad();
-                
+                LoadFile(openFileDialog.FileName);
             }
+        }
+
+        private void LoadFile(string file)
+        {
+            _presenter = new TaskPresenter(new FlatFileRepo(new FileLocator(file)), new InputBox(), new Prompt(), new FileHistoryRepo());
+            ReLoad();
         }
 
         private void btnSaveAs_Click(object sender, EventArgs e)

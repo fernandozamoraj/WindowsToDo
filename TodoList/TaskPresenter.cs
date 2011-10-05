@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using TodoList.Model;
-using TodoList.Services;
 using TodoList.Services.Repos;
+using TodoList.Services.Repos.FileRepos;
 
 namespace TodoList
 {
     public class TaskPresenter
     {
+        private IFileHistoryRepo _fileHistoryRepo;
         private ITaskRepo _taskRepo;
         private IInput _input;
         private IPrompt _prompt;
         private bool _filled = false;
         private bool _hasChanges;
 
-        public TaskPresenter(ITaskRepo taskRepo, IInput input, IPrompt prompt)
+        public TaskPresenter(ITaskRepo taskRepo, IInput input, IPrompt prompt, IFileHistoryRepo fileHistoryRepo)
         {
             _taskRepo = taskRepo;
             _input = input;
             _prompt = prompt;
+            _fileHistoryRepo = fileHistoryRepo;
         }
 
         public ITaskRepo Repo
@@ -37,6 +39,8 @@ namespace TodoList
             return _taskRepo.GetUnfinishedTasks(importance);
         }
 
+
+
         public IList<TodoTask> GetHistory(Importance importance)
         {
             return _taskRepo.GetCompletedTasks(importance);
@@ -49,9 +53,16 @@ namespace TodoList
             _hasChanges = true;
         }
 
+        public string GetLastFileAccessed()
+        {
+            return _fileHistoryRepo.LastFileAccessed;
+        }
+
         public void SaveAll()
         {
             _taskRepo.SaveAll();
+            _fileHistoryRepo.AddFileName(_taskRepo.RepoName);
+            _fileHistoryRepo.Save();
             _hasChanges = false;
         }
 
