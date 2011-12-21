@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using TodoList.Model;
 using TodoList.Services;
 using TodoList.Services.Repos.FileRepos;
+using System.Collections.Generic;
 
 namespace TodoList
 {
@@ -42,6 +43,9 @@ namespace TodoList
                 txtNewTask.Text = string.Empty;
 
                 listBoxTasks.Items.Add(task);
+
+                
+                
             }
         }
 
@@ -96,12 +100,21 @@ namespace TodoList
 
         private void FillHistoryListBox(Importance importance)
         {
-            listBoxHistory.Items.Clear();
+            List<TodoTask> tasks = new List<TodoTask>();
 
             foreach (TodoTask todoTask in _presenter.GetHistory(importance))
             {
-                listBoxHistory.Items.Add(todoTask);
+                tasks.Add(todoTask);
             }
+                                   
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = tasks;
+            dataGridView1.Columns["IsCompleted"].Visible = false;
+            dataGridView1.Columns["Importance"].Visible = false;
+            dataGridView1.Columns["Description"].Width = 360;
+            dataGridView1.Columns["Notes"].Width = 350;
+            dataGridView1.Columns["DateEntered"].Width = 140;
+            dataGridView1.Columns["DateCompleted"].Width = 140;
         }
 
         private void btnComplete_Click(object sender, EventArgs e)

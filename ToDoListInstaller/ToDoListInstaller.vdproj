@@ -55,6 +55,27 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -71,6 +92,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -197,7 +226,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:To-Do List"
         "ProductCode" = "8:{3C806B5F-497D-4663-B37B-9030E8081FB4}"
-        "PackageCode" = "8:{313B1D43-53CA-4BF6-95EB-1C16E372FC91}"
+        "PackageCode" = "8:{50A30322-708E-458D-A003-4750FB6822F4}"
         "UpgradeCode" = "8:{8971D7ED-C693-4422-978C-7CD25A4B0F42}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -746,7 +775,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8D2B4B57C7DE42B5B0B41C028C0DC73D"
             {
-            "SourcePath" = "8:..\\TodoList\\obj\\Release\\TodoList.exe"
+            "SourcePath" = "8:..\\TodoList\\obj\\Debug\\TodoList.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_7D6CC8C6D88D43348A416C63C6027197"

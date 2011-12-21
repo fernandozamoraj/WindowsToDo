@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TodoList = new System.Windows.Forms.TabPage();
@@ -41,12 +42,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtNewTask = new System.Windows.Forms.TextBox();
             this.History = new System.Windows.Forms.TabPage();
-            this.listBoxHistory = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDataSource = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.TodoList.SuspendLayout();
             this.History.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -201,7 +203,7 @@
             // 
             // History
             // 
-            this.History.Controls.Add(this.listBoxHistory);
+            this.History.Controls.Add(this.dataGridView1);
             this.History.Location = new System.Drawing.Point(4, 29);
             this.History.Margin = new System.Windows.Forms.Padding(4);
             this.History.Name = "History";
@@ -210,21 +212,6 @@
             this.History.TabIndex = 1;
             this.History.Text = "History";
             this.History.UseVisualStyleBackColor = true;
-            // 
-            // listBoxHistory
-            // 
-            this.listBoxHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.listBoxHistory.Font = new System.Drawing.Font("Buxton Sketch", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBoxHistory.FormattingEnabled = true;
-            this.listBoxHistory.ItemHeight = 23;
-            this.listBoxHistory.Location = new System.Drawing.Point(9, 15);
-            this.listBoxHistory.Margin = new System.Windows.Forms.Padding(4);
-            this.listBoxHistory.Name = "listBoxHistory";
-            this.listBoxHistory.Size = new System.Drawing.Size(980, 395);
-            this.listBoxHistory.TabIndex = 0;
             // 
             // label2
             // 
@@ -242,6 +229,21 @@
             this.txtDataSource.ReadOnly = true;
             this.txtDataSource.Size = new System.Drawing.Size(628, 24);
             this.txtDataSource.TabIndex = 2;
+            // 
+            // dataGridView1
+            // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(9, 7);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(980, 401);
+            this.dataGridView1.TabIndex = 2;
             // 
             // MainForm
             // 
@@ -262,6 +264,7 @@
             this.TodoList.ResumeLayout(false);
             this.TodoList.PerformLayout();
             this.History.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,12 +281,12 @@
         private System.Windows.Forms.ListBox listBoxTasks;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnComplete;
-        private System.Windows.Forms.ListBox listBoxHistory;
         private System.Windows.Forms.Button btnLoadFromFile;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtDataSource;
         private System.Windows.Forms.Button btnSaveAs;
         private System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 
