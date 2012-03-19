@@ -2,7 +2,6 @@
 using System.Text;
 using System.Windows.Forms;
 using TodoList.Model;
-using TodoList.Services;
 using TodoList.Services.Repos.FileRepos;
 using System.Collections.Generic;
 
@@ -34,7 +33,7 @@ namespace TodoList
                                         DateCompleted = DateTime.Now,
                                         DateEntered = DateTime.Now,
                                         Description = txtNewTask.Text,
-                                        Importance = Importance.Low,
+                                        Importance = GetImporance(),
                                         Notes = string.Empty
                                     };
 
@@ -42,10 +41,33 @@ namespace TodoList
 
                 txtNewTask.Text = string.Empty;
 
-                listBoxTasks.Items.Add(task);
+                listBoxTasks.Items.Clear();
 
-                
-                
+                foreach(TodoTask temporaryTask in _presenter.GetUnfinishedTasks(Importance.All))
+                {
+                    listBoxTasks.Items.Add(temporaryTask);
+                }
+            }
+        }
+
+        private Importance GetImporance()
+        {
+            string temporaryValue = cbxImportance.Text;
+
+            switch (temporaryValue)
+            {
+                case "4 High Priority":
+                    return Importance.Highest;
+                    break;
+                case "3":
+                    return Importance.High;
+                case "2":
+                    return Importance.Medium;
+                case "1 Low Priority":
+                    return Importance.Low;
+                default:
+                    return Importance.Medium;
+
             }
         }
 

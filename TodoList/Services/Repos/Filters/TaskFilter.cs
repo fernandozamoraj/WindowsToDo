@@ -7,7 +7,7 @@ namespace TodoList.Services.Repos.Filters
     {
         public IList<TodoTask> GetUnfinishedTasks(Importance importance, IEnumerable<TodoTask> taskList)
         {
-            IList<TodoTask> filteredTasks = new List<TodoTask>();
+            List<TodoTask> filteredTasks = new List<TodoTask>();
 
             foreach (TodoTask todoTask in taskList)
             {
@@ -17,6 +17,8 @@ namespace TodoList.Services.Repos.Filters
                     filteredTasks.Add(todoTask);
                 }
             }
+
+            filteredTasks.Sort();
 
             return filteredTasks;
         }

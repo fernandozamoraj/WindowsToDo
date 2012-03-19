@@ -42,9 +42,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtNewTask = new System.Windows.Forms.TextBox();
             this.History = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDataSource = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.cbxImportance = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.TodoList.SuspendLayout();
             this.History.SuspendLayout();
@@ -68,6 +69,7 @@
             // 
             // TodoList
             // 
+            this.TodoList.Controls.Add(this.cbxImportance);
             this.TodoList.Controls.Add(this.btnCopy);
             this.TodoList.Controls.Add(this.btnSaveAs);
             this.TodoList.Controls.Add(this.btnLoadFromFile);
@@ -198,7 +200,7 @@
             this.txtNewTask.Location = new System.Drawing.Point(95, 21);
             this.txtNewTask.Margin = new System.Windows.Forms.Padding(4);
             this.txtNewTask.Name = "txtNewTask";
-            this.txtNewTask.Size = new System.Drawing.Size(765, 24);
+            this.txtNewTask.Size = new System.Drawing.Size(661, 24);
             this.txtNewTask.TabIndex = 0;
             // 
             // History
@@ -212,6 +214,21 @@
             this.History.TabIndex = 1;
             this.History.Text = "History";
             this.History.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(9, 7);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(980, 401);
+            this.dataGridView1.TabIndex = 2;
             // 
             // label2
             // 
@@ -230,20 +247,18 @@
             this.txtDataSource.Size = new System.Drawing.Size(628, 24);
             this.txtDataSource.TabIndex = 2;
             // 
-            // dataGridView1
+            // cbxImportance
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(9, 7);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(980, 401);
-            this.dataGridView1.TabIndex = 2;
+            this.cbxImportance.FormattingEnabled = true;
+            this.cbxImportance.Items.AddRange(new object[] {
+            "1 Low Priority",
+            "2",
+            "3",
+            "4 High Priority"});
+            this.cbxImportance.Location = new System.Drawing.Point(764, 20);
+            this.cbxImportance.Name = "cbxImportance";
+            this.cbxImportance.Size = new System.Drawing.Size(88, 28);
+            this.cbxImportance.TabIndex = 14;
             // 
             // MainForm
             // 
@@ -287,6 +302,7 @@
         private System.Windows.Forms.Button btnSaveAs;
         private System.Windows.Forms.Button btnCopy;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ComboBox cbxImportance;
     }
 }
 
