@@ -51,13 +51,13 @@ namespace TodoList.Services.Repos
 
         protected Importance GetImportance(string importance)
         {
-            if (importance == "0" || importance == "1")
+            if (importance == "Low")
                 return Importance.Low;
-            if (importance == "2")
+            if (importance == "Medium")
                 return Importance.Medium;
-            if (importance == "3")
+            if (importance == "High")
                 return Importance.High;
-            if (importance == "4")
+            if (importance == "Highest")
                 return Importance.Highest;
 
             return Importance.Low;
